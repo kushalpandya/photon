@@ -39,13 +39,13 @@ module.exports = function(grunt) {
 
     sass: {
       options: {
-        sourcemap: 'none',
+        sourcemap: 'auto',
         style: 'expanded',
         unixNewlines: true
       },
       core: {
         src: 'sass/photon.scss',
-        dest: '<%= meta.distPath %>css/<%= pkg.name %>.css'
+        dest: '<%= meta.distPath %>css/<%= pkg.name %>.min.css'
       },
       docs: {
         src: 'sass/docs.scss',
@@ -152,6 +152,8 @@ module.exports = function(grunt) {
   grunt.registerTask('dist-css', ['sass', 'usebanner', 'cssmin']);
   grunt.registerTask('dist', ['clean', 'dist-css', 'copy']);
   grunt.registerTask('server', ['dist', 'jekyll:docs', 'connect', 'watch']);
+
+  grunt.registerTask('dev', ['clean', 'sass', 'usebanner', 'copy', 'jekyll:docs', 'connect', 'watch']);
 
   grunt.registerTask('default', ['dist']);
 };
